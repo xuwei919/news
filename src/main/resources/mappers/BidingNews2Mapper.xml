@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sz.news.dao.BidingNews2Dao">
+    <resultMap id="BaseResultMap" type="com.sz.news.model.BidingNews2">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="pubdate" jdbcType="TIMESTAMP" property="pubdate"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, title, url, pubdate
+    </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from biding_news_2
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+        delete
+        from biding_news_2
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+    <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.sz.news.model.BidingNews2"
+            useGeneratedKeys="true">
+        insert into biding_news_2 (title, url, pubdate)
+        values (#{title,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{pubdate,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.sz.news.model.BidingNews2"
+            useGeneratedKeys="true">
+        insert into biding_news_2
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="title != null">
+                title,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="pubdate != null">
+                pubdate,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="pubdate != null">
+                #{pubdate,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.sz.news.model.BidingNews2">
+        update biding_news_2
+        <set>
+            <if test="title != null">
+                title = #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="url != null">
+                url = #{url,jdbcType=VARCHAR},
+            </if>
+            <if test="pubdate != null">
+                pubdate = #{pubdate,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="com.sz.news.model.BidingNews2">
+        update biding_news_2
+        set title   = #{title,jdbcType=VARCHAR},
+            url     = #{url,jdbcType=VARCHAR},
+            pubdate = #{pubdate,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+
+    <select id="findAll" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from biding_news_2
+    </select>
+
+    <select id="getTotalCount" resultType="integer">
+        select count(1)
+        from biding_news_2
+    </select>
+
+    <select id="getNewsPage" resultMap="BaseResultMap" parameterType="com.sz.news.dto.BidingNews2DTO">
+        select
+        <include refid="Base_Column_List"/>
+        from biding_news_2 order by id desc
+        LIMIT #{offset},#{limit}
+    </select>
+
+</mapper>

@@ -1,0 +1,20 @@
+server:
+  port: 9090
+spring:
+  application:
+    name: news
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/test?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=UTC
+  thymeleaf:
+    cache: false
+
+mybatis:
+  type-aliases-package: com.sz.news.model.*
+  mapper-locations: classpath:mappers/*Mapper.xml
+
+logging:
+  level:
+    com.sz.news.dao: debug

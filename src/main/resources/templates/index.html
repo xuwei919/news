@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>news</title>
+    <link rel="icon" href="/static/image/news_favicon.ico"/>
+    <link rel="stylesheet" th:href="@{bootstrap/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" th:href="@{bootstrap/css/bootstrap-theme.min.css}"/>
+    <script type="text/javascript" th:src="@{js/jquery-1.11.1.min.js}"></script>
+    <script type="text/javascript" th:src="@{bootstrap/js/bootstrap.min.js}"></script>
+    <script type="text/javascript" th:src="@{bootstrap-table/bootstrap-table.min.css}"></script>
+    <script type="text/javascript" th:src="@{bootstrap-table/bootstrap-table.min.js}"></script>
+    <script type="text/javascript" th:src="@{bootstrap-table/bootstrap-table-zh-CN.min.js}"></script>
+</head>
+<style>
+    body, html {
+        margin: 0;
+        height: 100%;
+    }
+</style>
+<body>
+<button type="button" class="btn btn-success" style="float: right;margin: 5px" onclick="exportRecord()">导出</button>
+<table class="table" id="news-table"></table>
+
+<script>
+
+    $(document).ready(function () {
+
+        $('#news-table').bootstrapTable({
+            url: '/list',
+            striped: true,
+            pageNumber: 1,
+            pagination: true,
+            sidePagination: 'server',
+            pageSize: 20,
+            pageList: [20, 50, 100],
+            queryParams: function (params) {
+                return {
+                    limit: params.limit,
+                    offset: params.offset,
+                    page: (params.offset / params.limit) + 1
+                }
+            },
+            columns: [{
+                title: '序号',
+                field: 'id',
+                sortable: true,
+            }, {
+                title: '项目',
+                field: 'title'
+            }, {
+                title: '网址',
+                field: 'url',
+            }, {
+                title: '发布时间',
+                field: 'pubdate',
+                sortable: true,
+            }]
+
+        })
+
+    })
+
+    // function exportRecord() {
+    //     var form = document.createElement('form');
+    //     form.id = 'form';
+    //     form.name = 'form';
+    //     document.body.appendChild(form);
+    //     form.method = "GET"
+    //     form.action = '/export';
+    //     form.submit();
+    //     document.body.removeChild(form)
+    // }
+
+    function exportRecord() {
+        window.location.href = '/export'
+    }
+
+</script>
+
+
+</body>
+</html>
