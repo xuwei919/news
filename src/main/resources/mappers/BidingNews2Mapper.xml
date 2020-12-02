@@ -93,4 +93,10 @@
         LIMIT #{offset},#{limit}
     </select>
 
+    <select id="selectNewsByTitle">
+        select
+        <include refid="Base_Column_List"/>
+        from biding_news_2 where title=#{title}
+    </select>
+
 </mapper>

@@ -1,7 +1,7 @@
 package com.sz.news.dao;
 
-import com.sz.news.model.BidingNews2;
 import com.sz.news.dto.BidingNews2DTO;
+import com.sz.news.model.BidingNews2;
 
 import java.util.List;
 
@@ -35,4 +35,11 @@ public interface BidingNews2Dao {
 
     int getTotalCount();
 
+    /**
+     * 根据标题查询数据
+     *
+     * @param key
+     * @return
+     */
+    BidingNews2 selectNewsByTitle(String title);
 }

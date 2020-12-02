@@ -1,9 +1,12 @@
 package com.sz.news.service.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.sz.news.cache.UserThreadLocal;
 import com.sz.news.dao.BidingNews2Dao;
-import com.sz.news.model.BidingNews2;
-import com.sz.news.service.NewsService;
 import com.sz.news.dto.BidingNews2DTO;
+import com.sz.news.model.BidingNews2;
+import com.sz.news.model.UserBean;
+import com.sz.news.service.NewsService;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -33,6 +36,13 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public int getTotalCount() {
+        UserBean userBean = UserThreadLocal.get();
+        System.out.println("获取缓存：" + JSON.toJSONString(userBean));
         return bidingNews2Dao.getTotalCount();
+    }
+
+    @Override
+    public BidingNews2 selectNewsByTitle(String key) {
+        return bidingNews2Dao.selectNewsByTitle(key);
     }
 }

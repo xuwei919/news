@@ -6,6 +6,7 @@ import com.alibaba.excel.metadata.Font;
 import com.alibaba.excel.metadata.Sheet;
 import com.alibaba.excel.metadata.TableStyle;
 import com.alibaba.excel.support.ExcelTypeEnum;
+import com.sz.news.cache.NewsInfoCache;
 import com.sz.news.dto.BidingNews2DTO;
 import com.sz.news.dto.BidingNewsExportBean;
 import com.sz.news.dto.PageDataBean;
@@ -96,11 +97,9 @@ public class NewsController {
 
     }
 
-    public void writeExcel(
-            HttpServletResponse response, List<? extends BaseRowModel> list,
-            String fileName, String sheetName, BaseRowModel model) throws Exception {
-        ExcelWriter writer =
-                new ExcelWriter(getOutputStream(fileName, response), ExcelTypeEnum.XLSX);
+    public void writeExcel(HttpServletResponse response, List<? extends BaseRowModel> list, String fileName,
+            String sheetName, BaseRowModel model) throws Exception {
+        ExcelWriter writer = new ExcelWriter(getOutputStream(fileName, response), ExcelTypeEnum.XLSX);
         Sheet sheet = new Sheet(1, 0, model.getClass());
         sheet.setSheetName(sheetName);
         sheet.setTableStyle(createTableStyle());
@@ -146,6 +145,14 @@ public class NewsController {
         tableStyle.setTableContentFont(contentFont);
 
         return tableStyle;
+    }
+
+    @GetMapping("/cache")
+    @ResponseBody
+    public BidingNews2 getinfoFromCache(String title) {
+        NewsInfoCache newsInfoCache = new NewsInfoCache();
+        //        return newsInfoCache.getData(title);
+        return null;
     }
 
 }
